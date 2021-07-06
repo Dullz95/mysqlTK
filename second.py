@@ -7,4 +7,4 @@ import tkinter as tk
 # root.mainloop()
 from datetime import datetime, timedelta, date
 time = datetime.now()
-print(str(time)[0:19])
+print(str(time)[11:19])
