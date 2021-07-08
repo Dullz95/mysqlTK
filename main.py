@@ -4,6 +4,8 @@ from tkinter import *
 from tkinter import messagebox
 from tkinter.ttk import Combobox
 from datetime import datetime, timedelta, date
+from tkinter.ttk import Treeview
+from tkinter import ttk
 
 # create GUI
 master = tk.Tk()
@@ -115,11 +117,12 @@ class Login_system:
                 mydb.commit()
 
             def sign_out():
-                mydb = mysql.connector.connect(user='root', password='yolo0909', host='127.0.0.1', database='lc_online',
+                mydb = mysql.connector.connect(user='root', password='yolo0909', host='127.0.0.1',
+                                               database='lc_online',
                                                auth_plugin='mysql_native_password')
                 mycursor = mydb.cursor()
-                data = "UPDATE signing SET sign_out= %s WHERE id='"+identification+"' AND sign_in_date='"+date_now+"'"
-                val = time_now
+                data = "UPDATE signing SET sign_out=%s WHERE id='" + identification + "' AND sign_in_date='" + date_now + "'"
+                val = [time_now]
                 mycursor.execute(data, val)
                 mydb.commit()
 
@@ -128,19 +131,22 @@ class Login_system:
             log_in = Button(window, text="Sign out", command=sign_out)
             log_in.place(x=200, y=100)
         def admin_screen():
-            window = tk.Tk()
-            window.title("admin")
-            window.geometry("420x250")
-            window.configure(bg="skyblue")
-            usern = Label(window, text="Please enter username")
-            usern.place(x=50, y=50)
-            usere = Entry(window, textvariable="name")
-            usere.place(x=250, y=50)
-            passe = Label(window, text="Please enter password")
-            passe.place(x=50, y=100)
-            passwe = Entry(window, textvariable="pass")
-            passwe.place(x=250, y=100)
 
+            ws = Tk()
+            ws.title("PythonGuides")
+
+            tree = ttk.Treeview(ws, columns=(1, 2, 3), show='headings', height=8)
+            tree.pack()
+
+            tree.heading(1, text="name")
+            tree.heading(2, text="eid")
+            tree.heading(3, text="Salary")
+
+
+
+            style = ttk.Style()
+            style.theme_use("default")
+            style.map("Treeview")
 
         def signing_in():
             mydb = mysql.connector.connect(user='root', password='yolo0909', host='127.0.0.1', database='lc_online',auth_plugin='mysql_native_password')
